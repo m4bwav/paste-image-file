@@ -17,7 +17,7 @@ Files are named `clipboard_yyyyMMdd_HHmmss.png`. An existing file is never overw
 
 ## Install
 
-1. Download or clone this repository somewhere it can stay (the menu points at the script's location).
+1. Download or clone this repository anywhere.
 2. In PowerShell, from the repository folder:
 
    ```powershell
@@ -26,7 +26,7 @@ Files are named `clipboard_yyyyMMdd_HHmmss.png`. An existing file is never overw
 
 3. On Windows 11 the entries are under **Show more options** (or hold Shift while you right-click).
 
-To remove the entries: `.\src\Install-PasteImageMenu.ps1 -Uninstall`. Moved the folder? Run the installer again.
+The installer copies the script to `%LOCALAPPDATA%\paste-image-file` and the menu runs that copy, so you can move or delete the downloaded folder afterwards. After updating, run the installer again to refresh the copy. To remove everything: `.\src\Install-PasteImageMenu.ps1 -Uninstall`.
 
 ## Use from the command line
 
@@ -69,5 +69,7 @@ CI runs the same on every push. Details: [Development](https://github.com/m4bwav
 ## Licence
 
 MIT. See [LICENSE](LICENSE). The banner was made with Z-Image Turbo on a local ComfyUI; prompt, seed and workflow are in [.github/images/banner-src/](.github/images/banner-src/).
+
+
 
 

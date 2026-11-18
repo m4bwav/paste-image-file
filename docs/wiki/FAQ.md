@@ -16,10 +16,11 @@ Edit the `'clipboard_{0:yyyyMMdd_HHmmss}.png'` line in `src/Save-ClipboardImage.
 Yes: copy one of the keys in `Install-PasteImageMenu.ps1` with a new key name and label, and pass `-Path "%V.\pasted.jpg"`-style targets, or add a `-Format` parameter. Pull requests welcome.
 
 **Is `-ExecutionPolicy Bypass` safe?**
-It applies to that one PowerShell process and only lets it run the script it was given. The real trust boundary is the folder: whoever can edit the script controls what the menu runs. Keep it where only you (or admins) can write.
+It applies to that one PowerShell process and only lets it run the script it was given. The real trust boundary is the installed copy in `%LOCALAPPDATA%\paste-image-file`: whoever can edit it controls what the menu runs. That folder is writable only by you (and admins).
 
 **Is `conhost.exe --headless` documented?**
 It is the switch Windows uses to host pseudo-consoles (ConPTY), present since Windows 10 1809, and widely used for windowless launches. It is not a documented public API, so a future Windows could change it; the installer falls back to `-WindowStyle Hidden` if `conhost.exe` is missing. See [[How it works]].
 
 **Why does a JPEG come out with a white background?**
 JPEG cannot store transparency, so transparent pixels are painted white instead of black.
+

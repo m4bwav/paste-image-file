@@ -21,3 +21,9 @@ A suffix is added when the target exists. A paste tool that silently replaces a 
 ## 2026-11-18 Prefer the PNG clipboard format
 
 Browsers put both a PNG stream and a bitmap on the clipboard. The bitmap loses transparency, so PNG is read first and written byte for byte.
+
+## 2026-11-18 Install a copy to %LOCALAPPDATA%
+
+- **Chosen:** the installer copies `Save-ClipboardImage.ps1` to `%LOCALAPPDATA%\paste-image-file` and the menu runs that copy.
+- **Considered:** pointing at the downloaded folder (0.1.x; the menu broke when the folder moved or a ZIP download was deleted); `Program Files` (needs admin).
+- **Why:** the download can go anywhere or be deleted; per-user, no admin; updating means re-running the installer, which is explicit.

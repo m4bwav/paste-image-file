@@ -12,7 +12,9 @@
   window at all. (-WindowStyle Hidden alone still flashes a window, because the console exists
   before PowerShell can hide it.) If conhost.exe is missing, it falls back to -WindowStyle Hidden.
 
-  The menu points at Save-ClipboardImage.ps1 next to this installer. Move the folder? Run this again.
+  The installer copies Save-ClipboardImage.ps1 to %LOCALAPPDATA%\paste-image-file and points the
+  menu at that copy, so the downloaded or cloned folder can be moved or deleted afterwards.
+  Run the installer again after updating to refresh the copy. -Uninstall removes the copy too.
 
 .EXAMPLE
   .\Install-PasteImageMenu.ps1
@@ -22,7 +24,9 @@
 param(
     [switch]$Uninstall,
     # Where the Directory keys go. Only the tests change this (to a scratch key).
-    [string]$RegistryBase = 'HKCU:\Software\Classes\Directory'
+    [string]$RegistryBase = 'HKCU:\Software\Classes\Directory',
+    # Where the script copy lives. Only the tests change this.
+    [string]$InstallDir = (Join-Path $env:LOCALAPPDATA 'paste-image-file')
 )
 
 $base = $RegistryBase
@@ -35,12 +39,19 @@ $entries = @(
 
 if ($Uninstall) {
     foreach ($e in $entries) { Remove-Item -LiteralPath $e.Key -Recurse -Force -ErrorAction SilentlyContinue }
-    Write-Output 'Menu entries removed.'
+    Remove-Item -LiteralPath (Join-Path $InstallDir 'Save-ClipboardImage.ps1') -Force -ErrorAction SilentlyContinue
+    if ((Test-Path -LiteralPath $InstallDir) -and -not (Get-ChildItem -LiteralPath $InstallDir -Force)) {
+        Remove-Item -LiteralPath $InstallDir -Force
+    }
+    Write-Output 'Menu entries and installed script removed.'
     return
 }
 
-$script = Join-Path $PSScriptRoot 'Save-ClipboardImage.ps1'
-if (-not (Test-Path -LiteralPath $script)) { throw "Save-ClipboardImage.ps1 not found next to the installer ($script)." }
+$source = Join-Path $PSScriptRoot 'Save-ClipboardImage.ps1'
+if (-not (Test-Path -LiteralPath $source)) { throw "Save-ClipboardImage.ps1 not found next to the installer ($source)." }
+New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
+$script = Join-Path $InstallDir 'Save-ClipboardImage.ps1'
+Copy-Item -LiteralPath $source -Destination $script -Force
 
 $ps      = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
 $conhost = Join-Path $env:SystemRoot 'System32\conhost.exe'

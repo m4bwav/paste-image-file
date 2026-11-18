@@ -9,7 +9,7 @@
 ## Install
 
 1. Get the files: `git clone https://github.com/m4bwav/paste-image-file.git`, or **Code > Download ZIP** and extract it.
-   Put the folder somewhere permanent, such as `C:\Tools\paste-image-file`. The menu entry points at the script inside it.
+   Anywhere is fine: the installer copies the script to `%LOCALAPPDATA%\paste-image-file`, and the menu runs that copy.
 2. If you downloaded a ZIP, unblock the scripts so Windows does not warn about internet files:
    ```powershell
    Get-ChildItem -Recurse *.ps1 | Unblock-File
@@ -23,11 +23,11 @@
 
 ## Update
 
-`git pull` (or replace the files). If the folder did not move, nothing else is needed: the menu runs the script from disk every time.
+`git pull` (or download again), then run the installer again to refresh the installed copy.
 
-## Move the folder
+## Move or delete the folder
 
-Run the installer again from the new place. It overwrites the old entries.
+Nothing to do: the menu runs the installed copy in `%LOCALAPPDATA%\paste-image-file`, not the downloaded folder.
 
 ## Uninstall
 
@@ -35,8 +35,13 @@ Run the installer again from the new place. It overwrites the old entries.
 .\src\Install-PasteImageMenu.ps1 -Uninstall
 ```
 
-Then delete the folder. The installer wrote nothing else: two keys under `HKCU\Software\Classes\Directory` (see [[How it works]]).
+This removes both registry keys under `HKCU\Software\Classes\Directory` (see [[How it works]]) and `%LOCALAPPDATA%\paste-image-file`. The installer wrote nothing else.
 
 ## Install for every user
 
-Not built in. Copy the folder somewhere every user can read but only admins can write (for example `C:\Program Files\paste-image-file`), and run the installer once per user, or export the two keys and import them under `HKLM\Software\Classes\Directory` as an administrator. Keep the folder admin-writable only: the menu runs whatever script is there.
+Not built in. Run the installer once per user (each gets their own copy under their own `%LOCALAPPDATA%`), or copy the script somewhere every user can read but only admins can write (for example `C:\Program Files\paste-image-file`), and export the two keys and import them under `HKLM\Software\Classes\Directory` as an administrator. Keep the folder admin-writable only: the menu runs whatever script is there.
+
+
+
+
+

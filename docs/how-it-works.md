@@ -3,7 +3,7 @@
 ## The two scripts
 
 - `src/Save-ClipboardImage.ps1` reads the clipboard and writes a file. It works on its own from any PowerShell prompt.
-- `src/Install-PasteImageMenu.ps1` writes two registry keys that make Explorer run the first script.
+- `src/Install-PasteImageMenu.ps1` copies the first script to `%LOCALAPPDATA%\paste-image-file\` and writes two registry keys that make Explorer run that copy. The downloaded folder is not needed afterwards.
 
 ## Registry keys
 
@@ -21,7 +21,7 @@ Each key has a default value (the menu text), an `Icon` value (PowerShell's icon
 ```
 "C:\Windows\System32\conhost.exe" --headless "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     -NoProfile -STA -ExecutionPolicy Bypass -WindowStyle Hidden
-    -File "<repo>\src\Save-ClipboardImage.ps1" -Path "%1." -Gui
+    -File "%LOCALAPPDATA%\paste-image-file\Save-ClipboardImage.ps1" -Path "%1." -Gui
 ```
 
 - **`conhost.exe --headless`** starts PowerShell with a pseudo-console and no window. Without it, Windows creates a console window (or a Windows Terminal tab, if Terminal is the default) before PowerShell can hide it, so `-WindowStyle Hidden` alone flashes. `--headless` is the flag Windows uses internally for ConPTY; it exists on Windows 10 1809 and later. If `conhost.exe` is missing, the installer falls back to `-WindowStyle Hidden`.
@@ -44,3 +44,5 @@ JPEG output is flattened onto white first, because JPEG has no alpha and transpa
 ## File names
 
 A folder (or no `-Path`) means `clipboard_yyyyMMdd_HHmmss.png`. If the name exists, `-1`, `-2` ... is appended, so a quick double paste never overwrites anything. A path with no extension gets `.png`.
+
+
