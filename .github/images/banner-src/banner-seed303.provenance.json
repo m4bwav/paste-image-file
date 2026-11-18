@@ -1,0 +1,19 @@
+{
+ "models": [
+  "z_image_turbo_bf16.safetensors"
+ ],
+ "licences": [],
+ "texts": [
+  "flat vector illustration, wide banner, a glowing photograph image card floating out of a clipboard and gliding into an open manila file folder, a computer mouse cursor with a small right-click context menu beside it, soft teal and warm orange palette, clean dark navy background with subtle grid, minimal modern tech illustration, no text, no logos"
+ ],
+ "seeds": [
+  303
+ ],
+ "prefixes": [
+  "asset_gen"
+ ],
+ "image_inputs": [],
+ "host": "http://127.0.0.1:8199",
+ "seed": 303,
+ "prompt_id": "4ea344d8-9a16-4549-9847-6aa85f68cbbc"
+}
