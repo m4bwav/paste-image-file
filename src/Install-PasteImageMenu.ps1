@@ -19,9 +19,13 @@
 .EXAMPLE
   .\Install-PasteImageMenu.ps1 -Uninstall
 #>
-param([switch]$Uninstall)
+param(
+    [switch]$Uninstall,
+    # Where the Directory keys go. Only the tests change this (to a scratch key).
+    [string]$RegistryBase = 'HKCU:\Software\Classes\Directory'
+)
 
-$base = 'HKCU:\Software\Classes\Directory'
+$base = $RegistryBase
 # %1 = the folder that was right-clicked; %V = the folder whose background was right-clicked.
 # The trailing "." stops a drive root (D:\) from ending in \" which would escape the quote.
 $entries = @(
