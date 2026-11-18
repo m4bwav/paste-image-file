@@ -30,14 +30,9 @@ The menu itself is checked by hand: run the installer, right-click a folder, rig
 
 ## Wiki
 
-These pages live in `docs/wiki/` in the main repository. To publish:
-
-```powershell
-git clone https://github.com/m4bwav/paste-image-file.wiki.git ..\paste-image-file.wiki
-Copy-Item docs\wiki\* ..\paste-image-file.wiki\ -Force
-cd ..\paste-image-file.wiki; git add -A; git commit -m "Update wiki"; git push
-```
+These pages live in `docs/wiki/` in the main repository. To publish: `.\tools\Publish-Wiki.ps1` (it checks the wiki repo exists, clones or pulls it beside this repo, copies the pages and pushes).
 
 ## Releasing
 
 Bump the version in `CHANGELOG.md` and the wiki Home page, tag `vX.Y.Z`, and create a GitHub release with the changelog section as notes.
+
