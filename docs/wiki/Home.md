@@ -17,4 +17,5 @@ Copy an image in Chrome, Edge or Firefox, right-click, done. The file is `clipbo
 - [[FAQ]]
 - [[Development]]: tests, conventions, releasing
 
-Current version: **0.1.0** ([changelog](https://github.com/m4bwav/paste-image-file/blob/main/CHANGELOG.md)).
+Current version: **0.1.1** ([changelog](https://github.com/m4bwav/paste-image-file/blob/main/CHANGELOG.md)).
+

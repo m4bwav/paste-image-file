@@ -1,5 +1,7 @@
 # paste-image-file
 
+[![tests](https://github.com/m4bwav/paste-image-file/actions/workflows/tests.yml/badge.svg)](https://github.com/m4bwav/paste-image-file/actions/workflows/tests.yml)
+
 ![A folder, an image card and a mouse cursor on a right-click menu, in teal and orange on dark navy](https://raw.githubusercontent.com/m4bwav/paste-image-file/main/.github/images/banner.jpg)
 
 Copy an image in your browser, right-click a folder in Windows Explorer, choose **Paste image file into**, and the image is saved there as a PNG. No window opens.
@@ -59,9 +61,13 @@ The [wiki](https://github.com/m4bwav/paste-image-file/wiki) covers installation,
 ## Tests
 
 ```powershell
-.\tests\Test-SaveClipboardImage.ps1   # replaces your clipboard contents
+.\tests\Run-AllTests.ps1   # static, installer and clipboard tests in PowerShell 5.1 and 7; replaces your clipboard
 ```
+
+CI runs the same on every push. Details: [Development](https://github.com/m4bwav/paste-image-file/wiki/Development).
 
 ## Licence
 
 MIT. See [LICENSE](LICENSE). The banner was made with Z-Image Turbo on a local ComfyUI; prompt, seed and workflow are in [.github/images/banner-src/](.github/images/banner-src/).
+
+
