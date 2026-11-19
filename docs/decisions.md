@@ -27,3 +27,9 @@ Browsers put both a PNG stream and a bitmap on the clipboard. The bitmap loses t
 - **Chosen:** the installer copies `Save-ClipboardImage.ps1` to `%LOCALAPPDATA%\paste-image-file` and the menu runs that copy.
 - **Considered:** pointing at the downloaded folder (0.1.x; the menu broke when the folder moved or a ZIP download was deleted); `Program Files` (needs admin).
 - **Why:** the download can go anywhere or be deleted; per-user, no admin; updating means re-running the installer, which is explicit.
+
+## 2026-11-19 Text pastes in a second script
+
+- **Chosen:** `Save-ClipboardText.ps1` beside the image script, with its own menu entries ("Paste text file into/here"). Writes the clipboard's Unicode text as UTF-8 without a BOM, line endings untouched, `clipboard_<timestamp>.txt` by default; any extension the caller names is kept.
+- **Considered:** one entry that guesses image or text (browsers often put both on the clipboard, so the guess would surprise); a switch on the image script (mixes two jobs and two sets of errors).
+- **Why:** explicit is predictable, and each script stays small. UTF-8 without a BOM is what editors, git and most tools expect.
