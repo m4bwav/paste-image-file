@@ -4,7 +4,7 @@
 
 ![A folder, an image card and a mouse cursor on a right-click menu, in teal and orange on dark navy](https://raw.githubusercontent.com/m4bwav/paste-image-file/main/.github/images/banner.jpg)
 
-Copy an image in your browser, right-click a folder in Windows Explorer, choose **Paste image file into**, and the image is saved there as a PNG. No window opens.
+Copy an image in your browser, right-click a folder in Windows Explorer, choose **Paste image file into**, and the image is saved there as a PNG. Copied text works the same way with **Paste text file into**. No window opens.
 
 Two small PowerShell scripts, no install beyond a per-user registry entry, no admin rights, nothing running in the background.
 
@@ -12,8 +12,10 @@ Two small PowerShell scripts, no install beyond a per-user registry entry, no ad
 |---|---|---|
 | a folder | **Paste image file into** | inside that folder |
 | empty space in an open folder | **Paste image file here** | the folder you are looking at |
+| a folder | **Paste text file into** | inside that folder |
+| empty space in an open folder | **Paste text file here** | the folder you are looking at |
 
-Files are named `clipboard_yyyyMMdd_HHmmss.png`. An existing file is never overwritten.
+Images are named `clipboard_yyyyMMdd_HHmmss.png`, text `clipboard_yyyyMMdd_HHmmss.txt` (UTF-8, no BOM). An existing file is never overwritten.
 
 ## Install
 
@@ -26,7 +28,7 @@ Files are named `clipboard_yyyyMMdd_HHmmss.png`. An existing file is never overw
 
 3. On Windows 11 the entries are under **Show more options** (or hold Shift while you right-click).
 
-The installer copies the script to `%LOCALAPPDATA%\paste-image-file` and the menu runs that copy, so you can move or delete the downloaded folder afterwards. After updating, run the installer again to refresh the copy. To remove everything: `.\src\Install-PasteImageMenu.ps1 -Uninstall`.
+The installer copies the scripts to `%LOCALAPPDATA%\paste-image-file` and the menu runs that copy, so you can move or delete the downloaded folder afterwards. After updating, run the installer again to refresh the copy. To remove everything: `.\src\Install-PasteImageMenu.ps1 -Uninstall`.
 
 ## Use from the command line
 
@@ -36,7 +38,14 @@ The installer copies the script to `%LOCALAPPDATA%\paste-image-file` and the men
 .\src\Save-ClipboardImage.ps1 -Path D:\Pictures\cat.jpg # format follows the extension
 ```
 
-Supported extensions: `.png`, `.jpg`/`.jpeg`, `.bmp`, `.gif`, `.tif`/`.tiff`. Exit code 0 on success, 1 when there is no image or the save fails.
+For text:
+
+```powershell
+.\src\Save-ClipboardText.ps1 -Path D:\Notes            # clipboard_<timestamp>.txt
+.\src\Save-ClipboardText.ps1 -Path D:\Notes\snippet.md # any extension works
+```
+
+Image extensions: `.png`, `.jpg`/`.jpeg`, `.bmp`, `.gif`, `.tif`/`.tiff`. Exit code 0 on success, 1 when there is no image or the save fails.
 
 ## What it can read from the clipboard
 

@@ -5,7 +5,7 @@
 #>
 param([switch]$SkipClipboard)
 $tests = @('Test-Static.ps1', 'Test-Installer.ps1')
-if (-not $SkipClipboard) { $tests += 'Test-SaveClipboardImage.ps1' }
+if (-not $SkipClipboard) { $tests += 'Test-SaveClipboardImage.ps1', 'Test-SaveClipboardText.ps1' }
 $hosts = @(Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe')
 if (Get-Command pwsh -ErrorAction SilentlyContinue) { $hosts += (Get-Command pwsh).Source }
 $total = 0

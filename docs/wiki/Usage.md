@@ -10,6 +10,17 @@
 
 If there is no image on the clipboard, a message box says so and nothing is written.
 
+## Pasting text
+
+Copy any text, then right-click a folder and choose **Paste text file into**, or empty space and choose **Paste text file here**. The text is saved as `clipboard_20261118_143005.txt`, UTF-8 without a byte order mark, with line endings as copied. With no text on the clipboard, a message box says so and nothing is written.
+
+```powershell
+.\src\Save-ClipboardText.ps1 -Path D:\Notes            # timestamped .txt in a folder
+.\src\Save-ClipboardText.ps1 -Path D:\Notes\snippet.md # any extension; none gets .txt
+```
+
+It takes the same `-Path` and `-Gui` parameters as the image script and never overwrites.
+
 ## From PowerShell
 
 ```powershell

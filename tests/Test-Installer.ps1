@@ -24,6 +24,13 @@ Assert 'command runs Windows PowerShell 5.1 in STA' { (Get-Cmd 'shell') -match '
 Assert 'command points at an existing script' {
     (Get-Cmd 'shell') -match '-File "([^"]+)"' -and (Test-Path $Matches[1]) -and $Matches[1].StartsWith($inst)
 }
+function Get-TextCmd($k) { (Get-ItemProperty -LiteralPath "$base\$k\PasteTextFile\command").'(default)' }
+Assert 'text folder entry label' { (Get-ItemProperty "$base\shell\PasteTextFile").'(default)' -eq 'Paste text file into' }
+Assert 'text background entry label' { (Get-ItemProperty "$base\Background\shell\PasteTextFile").'(default)' -eq 'Paste text file here' }
+Assert 'text commands run the installed text script' {
+    (Get-TextCmd 'shell') -like '*Save-ClipboardText.ps1" -Path "%1." -Gui' -and (Get-TextCmd 'Background\shell') -like '*-Path "%V." -Gui' -and
+    (Test-Path (Join-Path $inst 'Save-ClipboardText.ps1'))
+}
 Assert 'icon is set' { (Get-ItemProperty "$base\shell\PasteImageFile").Icon -like '*powershell.exe,0' }
 
 & $installer -RegistryBase $base -InstallDir $inst | Out-Null
@@ -32,6 +39,7 @@ Assert 'reinstall is idempotent' { (Get-Cmd 'shell') -like '*-Path "%1." -Gui' }
 & $installer -RegistryBase $base -InstallDir $inst -Uninstall | Out-Null
 Assert 'uninstall removes folder entry' { -not (Test-Path "$base\shell\PasteImageFile") }
 Assert 'uninstall removes background entry' { -not (Test-Path "$base\Background\shell\PasteImageFile") }
+Assert 'uninstall removes text entries' { -not (Test-Path "$base\shell\PasteTextFile") -and -not (Test-Path "$base\Background\shell\PasteTextFile") }
 Assert 'uninstall removes the installed script and its folder' { -not (Test-Path $inst) }
 & $installer -RegistryBase $base -InstallDir $inst -Uninstall | Out-Null
 Assert 'uninstall twice is harmless' { $true }

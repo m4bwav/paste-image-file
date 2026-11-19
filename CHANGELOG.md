@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - 2026-11-19
+
+- New `Save-ClipboardText.ps1`: saves the clipboard's text to a file (UTF-8, no BOM, line endings kept); folder targets get `clipboard_<timestamp>.txt`; any extension works; never overwrites.
+- New Explorer entries **Paste text file into** (folder) and **Paste text file here** (folder background). The installer copies both scripts and `-Uninstall` removes both.
+- Tests: `tests/Test-SaveClipboardText.ps1`, installer checks for the text entries.
+
 ## 0.2.0 - 2026-11-18
 
 - The installer now copies the script to `%LOCALAPPDATA%\paste-image-file` and the menu runs that copy, so the downloaded folder can be moved or deleted. Re-run the installer after updating. `-Uninstall` also removes the copy.
